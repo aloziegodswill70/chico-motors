@@ -43,7 +43,7 @@ export default function Contact() {
             href="mailto:chico@gmail.com"
             className="text-blue-600 underline hover:text-blue-800"
           >
-            chico@gmail.com
+            derealchicoventures@gmail.com
           </a>
         </p>
         <p className="text-base leading-relaxed">

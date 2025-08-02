@@ -3,14 +3,14 @@ export default function Legal() {
     <main className="p-6 max-w-4xl mx-auto">
       <h1 className="text-3xl font-bold mb-4 text-center">Our Legal Information</h1>
       <p className="text-lg leading-relaxed text-center mb-6">
-        Dereal Chico Cars is a registered business in Nigeria. Below is our official CAC
+        De Real Chico Cars is a registered business in Nigeria. Below is our official CAC
         (Corporate Affairs Commission) certificate as proof of our registration and
         authenticity.
       </p>
 
       <div className="flex justify-center">
         <img
-          src="YOUR_CAC_IMAGE_URL"
+          src="/images/certchico.jpg"
           alt="CAC Certificate"
           className="max-w-full rounded-lg shadow-md border"
         />

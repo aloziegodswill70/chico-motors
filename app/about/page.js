@@ -1,10 +1,10 @@
 export default function About() {
   return (
     <main className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4 text-center">About Dereal Chico Cars</h1>
+      <h1 className="text-3xl font-bold mb-4 text-center">About De Real Chico Cars</h1>
 
       <p className="text-lg leading-relaxed mb-4 text-center">
-        Welcome to <span className="font-semibold">Dereal Chico Cars</span>, your trusted destination
+        Welcome to <span className="font-semibold">De Real Chico Cars</span>, your trusted destination
         for fairly used cars in Nigeria. We are proudly located in the vibrant city of{" "}
         <span className="font-semibold">Aba, Abia State</span>.
       </p>

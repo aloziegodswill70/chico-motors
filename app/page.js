@@ -3,19 +3,25 @@ import { useState, useEffect } from 'react';
 import cars from '../data/carsdata';
 import CarCard from '../components/carcard';
 
+const quotes = [
+  { id: 'quote1', type: 'quote', text: 'Drive your dream car today!' },
+  { id: 'quote2', type: 'quote', text: 'Luxury within reach – choose Dereal Chico Motors' },
+  { id: 'quote3', type: 'quote', text: 'Affordable elegance on four wheels' },
+  { id: 'quote4', type: 'quote', text: 'The ride you deserve is one click away' },
+  { id: 'quote5', type: 'quote', text: 'Power, Performance, Prestige' },
+];
+
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [priceFilter, setPriceFilter] = useState('all');
   const [extraImages, setExtraImages] = useState([]);
 
-  // fetch uploaded images from API on mount
   useEffect(() => {
     const fetchImages = async () => {
       try {
         const res = await fetch('/api/images');
         if (res.ok) {
           const data = await res.json();
-          // map each image url to a dummy car object
           const uploadedCars = data.map((url, idx) => ({
             id: `uploaded-${idx}`,
             name: 'New Car',
@@ -31,26 +37,31 @@ export default function Home() {
     fetchImages();
   }, []);
 
-  // merge static cars with uploaded images
+  // Merge static cars + uploaded images + quotes, then shuffle
   const allCars = [...cars, ...extraImages];
+  const combined = [...allCars, ...quotes];
 
-  // filter combined list
-  const filteredCars = allCars.filter((car) => {
-    const matchesSearch = car.name.toLowerCase().includes(searchTerm.toLowerCase());
+  // Shuffle function
+  const shuffleArray = (array) => {
+    return [...array].sort(() => Math.random() - 0.5);
+  };
+
+  const mixedItems = shuffleArray(combined).filter((item) => {
+    if (item.type === 'quote') return true; // show all quotes
+    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesPrice =
       priceFilter === 'all' ||
-      (priceFilter === 'low' && car.price <= 4000000) ||
-      (priceFilter === 'mid' && car.price > 4000000 && car.price <= 8000000) ||
-      (priceFilter === 'high' && car.price > 8000000);
-
+      (priceFilter === 'low' && item.price <= 4000000) ||
+      (priceFilter === 'mid' && item.price > 4000000 && item.price <= 8000000) ||
+      (priceFilter === 'high' && item.price > 8000000);
     return matchesSearch && matchesPrice;
   });
 
   return (
     <main className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">Dereal Chico Cars</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">De Real Chico Motors</h1>
 
-      {/* Search & Filter Controls */}
+      {/* Search & Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-6 justify-center items-center">
         <input
           type="text"
@@ -71,15 +82,26 @@ export default function Home() {
         </select>
       </div>
 
-      {/* Car Grid */}
+      {/* Mixed Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredCars.map((car) => (
-          <CarCard key={car.id} car={car} />
-        ))}
+        {mixedItems.map((item) =>
+          item.type === 'quote' ? (
+            <div
+              key={item.id}
+              className="bg-gradient-to-br from-blue-500 to-red-500 text-white text-center p-6 rounded-lg shadow-md"
+            >
+              <p className="text-lg italic font-semibold">"{item.text}"</p>
+            </div>
+          ) : (
+            <CarCard key={item.id} car={item} />
+          )
+        )}
       </div>
 
-      {filteredCars.length === 0 && (
-        <p className="text-center mt-6 text-gray-500">No cars match your search or filter.</p>
+      {mixedItems.filter((item) => item.type !== 'quote').length === 0 && (
+        <p className="text-center mt-6 text-gray-500">
+          No cars match your search or filter.
+        </p>
       )}
     </main>
   );
