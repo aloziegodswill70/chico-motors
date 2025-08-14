@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Dereal Chico Cars",
+  title: "De Real Chico Cars",
   description: "Get faily used cars in the city of Aba, from anywhere in Nigeria. We are legal, trusted and tested.",
+   icons: {
+    icon: "/images/chicologo.jpg",
+  },
 };
 
 export default function RootLayout({ children }) {

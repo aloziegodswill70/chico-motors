@@ -11,9 +11,15 @@ export default function Navbar() {
   return (
     <nav className="bg-gray-800 text-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Brand */}
-        <Link href="/" className="text-xl font-bold">
-          De Real Chico Motors
+        
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-2">
+          <img
+            src="/images/chicologo.jpg"
+            alt="Chico Motors Logo"
+            className="h-10 w-auto object-contain md:h-12"
+          />
+          <span className="text-lg md:text-xl font-bold">Dereal Chico Motors</span>
         </Link>
 
         {/* Desktop Menu */}
@@ -32,7 +38,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Menu Toggle */}
         <button
           className="md:hidden text-2xl focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -42,12 +48,11 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Dropdown Menu */}
       <div
-        className={`
-          md:hidden overflow-hidden transition-all duration-300 ease-in-out
-          ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
-        `}
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
       >
         <div className="bg-gray-700 px-4 pb-4">
           <Link
@@ -71,7 +76,7 @@ export default function Navbar() {
           >
             FAQ
           </Link>
-               <Link
+          <Link
             href="/legal"
             className="block py-2 border-b border-gray-600 hover:text-gray-300 transition-colors"
             onClick={() => setMenuOpen(false)}

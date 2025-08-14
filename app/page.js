@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import cars from '../data/carsdata';
 import CarCard from '../components/carcard';
+import { FaPhone } from 'react-icons/fa';
 
 const quotes = [
   { id: 'quote1', type: 'quote', text: 'Drive your dream car today!' },
@@ -37,17 +38,15 @@ export default function Home() {
     fetchImages();
   }, []);
 
-  // Merge static cars + uploaded images + quotes, then shuffle
   const allCars = [...cars, ...extraImages];
   const combined = [...allCars, ...quotes];
 
-  // Shuffle function
   const shuffleArray = (array) => {
     return [...array].sort(() => Math.random() - 0.5);
   };
 
   const mixedItems = shuffleArray(combined).filter((item) => {
-    if (item.type === 'quote') return true; // show all quotes
+    if (item.type === 'quote') return true;
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesPrice =
       priceFilter === 'all' ||
@@ -58,8 +57,21 @@ export default function Home() {
   });
 
   return (
-    <main className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">De Real Chico Motors</h1>
+    <main className="p-4 sm:p-6">
+      {/* Responsive Header */}
+      <header className="flex flex-col sm:flex-row justify-center sm:justify-between items-center gap-3 mb-8 bg-gradient-to-r from-blue-700 via-red-600 to-yellow-500 text-white p-4 rounded-lg shadow-lg">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-wide text-center sm:text-left">
+          De Real Chico Motors
+        </h1>
+        <a
+          href="tel:+2348062180843"
+          className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-4 py-2 rounded-lg shadow-md transition duration-200"
+        >
+          <FaPhone className="text-lg sm:text-xl" />
+          <span className="hidden sm:inline">Call Us Now!</span>
+          <span className="sm:hidden">Call</span>
+        </a>
+      </header>
 
       {/* Search & Filter */}
       <div className="flex flex-col md:flex-row gap-4 mb-6 justify-center items-center">
